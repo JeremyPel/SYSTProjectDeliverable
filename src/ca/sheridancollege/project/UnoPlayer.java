@@ -16,6 +16,27 @@ public class UnoPlayer extends Player {
         hand.displayHand();
     }
     
+    public void showCard(int chosenCard) {
+        hand.displayCard(chosenCard);
+    }
+    
+    /*
+    public void getColor(int chosenCard) {
+        hand.getCardColor(chosenCard);
+    }
+    
+    public void getValue(int chosenCard) {
+        hand.getCardValue(chosenCard);
+    }
+ */
+    public UnoCard.Color getCardColor(int card) {
+        return hand.getColor(card);
+    }
+    
+    public UnoCard.Value getCardValue(int card) {
+        return hand.getValue(card);
+    }
+    
     @Override
     public void play() {
         

@@ -9,7 +9,7 @@ public class Hand extends GroupOfCards {
         super(size);
     }
     
-    // Add to, remove from, or display player's hand of cards
+    // Add to, remove from, or display player's whole hand
     public void addCard(UnoCard card) {
         unoHand.add(card);
     }
@@ -27,8 +27,21 @@ public class Hand extends GroupOfCards {
         
     }
     
+    public void displayCard(int card) {
+        System.out.println(unoHand.get(card));
+    }
+    
+    public UnoCard.Color getColor(int card) {
+        return unoHand.get(card).getColor();
+    }
+    
+    public UnoCard.Value getValue(int card) {
+        return unoHand.get(card).getValue();
+    }
+    
     // For checking to see if player has reached 0 cards
     public int countHandSize() {
         return unoHand.size();
     }
+       
 }
