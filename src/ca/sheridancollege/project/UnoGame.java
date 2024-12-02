@@ -3,10 +3,11 @@ package ca.sheridancollege.project;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//SUPPOSED to extend Game but doesnt work for some reason
 public class UnoGame {
     private ArrayList<UnoPlayer> players = new ArrayList<UnoPlayer>();
     private UnoDeck deck = new UnoDeck(1);
-    private UnoCard topCard = new UnoCard(UnoCard.Color.RED, UnoCard.Value.ZERO); // temporary value 
+    private UnoCard topCard = deck.draw(); // temporary value 
     private int currentPlayerIndex;
     Scanner scn = new Scanner(System.in);
     
@@ -14,9 +15,10 @@ public class UnoGame {
         this.players = players;
     }
     
-    // Get player names
+    // Get and set player names
     public void startGame() {
-        
+        int noMoreNames = 1;
+        System.out.println("Would you like to add a player? 1 for yes, 2 for no: ");
     }
     
     // Loop the game until a player reaches 0 cards
@@ -27,6 +29,7 @@ public class UnoGame {
             System.out.println(topCard.toString());
             
             // Show the player their hand, then ask them to select a card
+            players.get(i).getName();
             players.get(i).showHand();      
             System.out.println("\nInput a number to select a card: ");
             int chosenCard = scn.nextInt() - 1;
