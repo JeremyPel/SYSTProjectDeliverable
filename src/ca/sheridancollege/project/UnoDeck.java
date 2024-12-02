@@ -3,7 +3,7 @@ package ca.sheridancollege.project;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class UnoDeck {
+public class UnoDeck extends GroupOfCards{
     private final ArrayList<UnoCard> unoCards = new ArrayList<UnoCard>();
 
     // Add number cards (0-9) for each color
@@ -46,6 +46,7 @@ public class UnoDeck {
     }
 
     // Shuffle the deck
+    @Override
     public void shuffle() {
         Collections.shuffle(unoCards);
     }
@@ -60,21 +61,22 @@ public class UnoDeck {
     }
 
     // Constructor to create and shuffle the deck
-    public UnoDeck() {
+    public UnoDeck(int size) {
+        super(size);
         addNumberCards();
         addSpecialCards();
         addWildCards();
         shuffle();
         
-//        for (UnoCard card : unoCards) {
-//            System.out.println(card);
-//        }
+        //for (UnoCard card : unoCards) {
+            //System.out.println(card);
+        //}
     }
     
-//    public static void main(String[] args) {
-//        UnoDeck deck = new UnoDeck();  // Create the deck
-//        deck.UnoDeck();  // Print all cards in the deck
-//    }
+    //public static void main(String[] args) {
+        //UnoDeck deck = new UnoDeck(1);  // Create the deck
+        //deck.UnoDeck();  // Print all cards in the deck
+   //}
 }
 
 
