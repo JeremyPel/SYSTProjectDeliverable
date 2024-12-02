@@ -19,9 +19,12 @@ public class Hand extends GroupOfCards {
     }
     
     public void displayHand() {
+        int i = 1;
         for (UnoCard card : unoHand) {
-            System.out.println(card);
+            System.out.println("Card " + i + ": " + card);
+            i++;
         }
+        
     }
     
     // For checking to see if player has reached 0 cards
