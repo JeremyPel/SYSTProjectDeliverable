@@ -1,5 +1,4 @@
 package ca.sheridancollege.project;
-
 import java.util.ArrayList;
 
 public class Hand extends GroupOfCards {
@@ -9,7 +8,7 @@ public class Hand extends GroupOfCards {
         super(size);
     }
     
-    // Add to, remove from, or display player's whole hand
+    // Add to, remove from, or display player's hand of cards
     public void addCard(UnoCard card) {
         unoHand.add(card);
     }
@@ -20,28 +19,33 @@ public class Hand extends GroupOfCards {
     
     public void displayHand() {
         int i = 1;
-        for (UnoCard card : unoHand) {
-            System.out.println("Card " + i + ": " + card);
+        for (UnoCard card : unoHand) {          
+            System.out.println(i + ": " + card);
             i++;
         }
-        
-    }
-    
-    public void displayCard(int card) {
-        System.out.println(unoHand.get(card));
-    }
-    
-    public UnoCard.Color getColor(int card) {
-        return unoHand.get(card).getColor();
-    }
-    
-    public UnoCard.Value getValue(int card) {
-        return unoHand.get(card).getValue();
     }
     
     // For checking to see if player has reached 0 cards
     public int countHandSize() {
         return unoHand.size();
     }
-       
+    
+    @Override
+    public ArrayList<Card> getCards() {
+    	return new ArrayList<>(unoHand);
+    }
+    
+    public UnoCard getOneCard(int card) {
+        return this.unoHand.get(card);
+    }
+
+	public UnoCard get(int index) {
+		 if (index >= 0 && index < unoHand.size()) {
+	            return unoHand.get(index);
+	        } else {
+	            // Return null or handle out-of-bounds index
+	            System.out.println("Invalid index!");
+	            return null;
+	        }
+	}
 }

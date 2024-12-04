@@ -1,5 +1,6 @@
 package ca.sheridancollege.project;
 
+
 public class UnoPlayer extends Player {   
     // Starting hand size for Uno is 7
     private Hand hand = new Hand(7);
@@ -8,7 +9,7 @@ public class UnoPlayer extends Player {
         super(name);
     }
     
-    public void addCardToHand(UnoCard card) {
+    public void addCard(UnoCard card) {
         hand.addCard(card);
     }
     
@@ -16,20 +17,16 @@ public class UnoPlayer extends Player {
         hand.displayHand();
     }
     
-    public void showCard(int chosenCard) {
-        hand.displayCard(chosenCard);
+    public Hand getHand() {
+    	return this.hand;
     }
     
-    public UnoCard.Color getCardColor(int card) {
-        return hand.getColor(card);
+    public UnoCard getCard(int index) {
+        return hand.get(index);
     }
     
-    public UnoCard.Value getCardValue(int card) {
-        return hand.getValue(card);
-    }
-       
     @Override
     public void play() {
         
-    }
+    } 
 }
