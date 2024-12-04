@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class UnoGame extends Game{
   private ArrayList<UnoPlayer> players = new ArrayList<>();
   private UnoDeck deck = new UnoDeck(1);
-  private UnoCard topCard = deck.draw(); // temporary value 
+  private UnoCard topCard = deck.draw(); 
   private int currentPlayerIndex;
 
   
@@ -69,9 +69,7 @@ public class UnoGame extends Game{
   }
   
   // Loop the game until a player reaches 0 cards
-  //Logic needs tweaking.
   //Wilds and special cards are played as normal cards are.
-  //declare winner doesnt work.
   @Override
   public void play() {
   	    Scanner scanner = new Scanner(System.in);
@@ -84,6 +82,7 @@ public class UnoGame extends Game{
   	        System.out.println("Top Card: " + topCard);
   	        System.out.println("Your Hand: ");
   	        currentPlayer.getHand().displayHand();
+                System.out.println("Hand size: " + currentPlayer.getHand().countHandSize());
 
   	        // Prompt the player for input
   	        System.out.println("Enter the card number to play or 0 to draw: ");
@@ -105,13 +104,16 @@ public class UnoGame extends Game{
   	                    System.out.println("You played: " + selectedCard);
 
   	                    // Check if the player has won
-  	                    if (currentPlayer.getHand().getSize() == 0) {
+  	                    if (currentPlayer.getHand().countHandSize() == 0) {
   	                        declareWinner();
   	                        break;
   	                    }
   	                } else {
   	                    // Invalid move: Notify the player
   	                    System.out.println("Invalid move! The card must match the top card in color or value, or be a wild card.");
+                            UnoCard drawnCard = deck.draw();
+                            currentPlayer.getHand().addCard(drawnCard);
+                            System.out.println("You were forced to draw: " + drawnCard);
   	                }
   	            } catch (IndexOutOfBoundsException e) {
   	                // Handle invalid card choice

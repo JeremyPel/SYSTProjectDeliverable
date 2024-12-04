@@ -18,8 +18,10 @@ public class Hand extends GroupOfCards {
     }
     
     public void displayHand() {
-        for (UnoCard card : unoHand) {
-            System.out.println(card);
+        int i = 1;
+        for (UnoCard card : unoHand) {          
+            System.out.println(i + ": " + card);
+            i++;
         }
     }
     

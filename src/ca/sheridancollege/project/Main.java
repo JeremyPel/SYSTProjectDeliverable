@@ -6,8 +6,6 @@ public class Main {
     public static void main(String[] args) {
         //Game
         UnoGame game = new UnoGame("New Game");
-        game.startGame();
-        game.play();
     }
 }
 
