@@ -51,11 +51,10 @@ public class UnoGame extends Game{
       
   }
   //Check if move is valid.
-  //Wild cards are not valid. Need to implement logic for special cards.
   public boolean isValidMove(UnoCard unoCard) {
  	 return unoCard.getColor().equals(topCard.getColor()) || 
               unoCard.getValue().equals(topCard.getValue()) || 
-              unoCard.getColor().equals("NONE");
+              unoCard.getColor().equals(UnoCard.Color.NONE);
 
  }
   
@@ -69,7 +68,6 @@ public class UnoGame extends Game{
   }
   
   // Loop the game until a player reaches 0 cards
-  //Wilds and special cards are played as normal cards are.
   @Override
   public void play() {
   	    Scanner scanner = new Scanner(System.in);
