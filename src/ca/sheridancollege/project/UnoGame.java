@@ -50,13 +50,24 @@ public class UnoGame extends Game{
 
       
   }
-  //Check if move is valid.
+  //Check if move is valid
   public boolean isValidMove(UnoCard unoCard) {
  	 return unoCard.getColor().equals(topCard.getColor()) || 
-              unoCard.getValue().equals(topCard.getValue()) || 
-              unoCard.getColor().equals(UnoCard.Color.NONE);
-
+              unoCard.getValue().equals(topCard.getValue());
  }
+  
+  //Check for special cards
+  public boolean isWild(UnoCard unoCard) {
+        return unoCard.getColor().equals(UnoCard.Color.NONE);
+  }
+  
+  public boolean isDraw(UnoCard unoCard) {
+      return unoCard.getValue().equals(UnoCard.Value.DRAW_TWO);
+  }
+  
+  public boolean isSkip(UnoCard unoCard) {
+      return unoCard.getValue().equals(UnoCard.Value.SKIP);
+  }
   
   public void dealCards() {
       // Deal 7 cards to each player
@@ -72,10 +83,22 @@ public class UnoGame extends Game{
   public void play() {
   	    Scanner scanner = new Scanner(System.in);
   	    currentPlayerIndex = 0; // Track whose turn it is
+            boolean drawTwo = false;
 
-  	    while (true) {
+  	    while (true) {                             
   	        // Get the current player
   	        UnoPlayer currentPlayer = players.get(currentPlayerIndex);
+                
+                // Check if player must draw 2
+                if (drawTwo) {
+                    UnoCard drawnCard = deck.draw();
+                    currentPlayer.getHand().addCard(drawnCard);
+                    currentPlayer.getHand().addCard(drawnCard);
+                    System.out.println("The next player has two cards added to their deck");
+                    drawTwo = false;
+                }
+                
+                // Show player their deck
   	        System.out.println("\n" + currentPlayer.getName() + "'s Turn");
   	        System.out.println("Top Card: " + topCard);
   	        System.out.println("Your Hand: ");
@@ -95,7 +118,58 @@ public class UnoGame extends Game{
   	            // Player chooses a card from their hand
   	            try {
   	                Card selectedCard = currentPlayer.getHand().getCards().get(choice - 1);
-  	                if (isValidMove((UnoCard)selectedCard)) {
+                        // Wild; doesn't need to match
+                        if (isWild((UnoCard)selectedCard)) {
+                            topCard = (UnoCard)selectedCard;
+                            System.out.println("1. Blue \n2. Red \n3. Green \n4. Yellow \nSelect a color:");
+                            // Ask player to choose the color of the wild card
+                            int colorChoice = scanner.nextInt();    
+                              switch (colorChoice) {
+                                  case 1:
+                                      topCard.setColor(UnoCard.Color.BLUE);
+                                      break;
+                                  case 2:
+                                      topCard.setColor(UnoCard.Color.RED);
+                                      break;
+                                  case 3:
+                                      topCard.setColor(UnoCard.Color.GREEN);
+                                      break;
+                                  case 4:
+                                      topCard.setColor(UnoCard.Color.YELLOW);
+                                      break;
+                                  default:
+                                      break;
+                              }
+  	                    currentPlayer.getHand().removeCard((UnoCard)selectedCard);
+  	                    System.out.println("You played: " + selectedCard);
+                            if (currentPlayer.getHand().countHandSize() == 0) {
+  	                        declareWinner();
+  	                        break;
+  	                    }
+                        }
+                        // Make next player draw 2
+                        else if (isDraw((UnoCard)selectedCard)) {
+                            topCard = (UnoCard)selectedCard;
+                            currentPlayer.getHand().removeCard((UnoCard)selectedCard);
+                            drawTwo = true;      
+                            if (currentPlayer.getHand().countHandSize() == 0) {
+  	                        declareWinner();
+  	                        break;
+  	                    }
+                        }
+                        // Skip next players turn by adding extra to currentPlayerIndex
+                        else if (isSkip((UnoCard)selectedCard)) {
+                            topCard = (UnoCard)selectedCard;
+                            currentPlayer.getHand().removeCard((UnoCard)selectedCard);
+                            System.out.println("The next player's turn is skipped!");
+                            currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+                            if (currentPlayer.getHand().countHandSize() == 0) {
+  	                        declareWinner();
+  	                        break;
+  	                    }
+                        }
+                        // Regular card
+                        else if (isValidMove((UnoCard)selectedCard)) {
   	                    // Valid move: Update the top card and remove it from the player's hand
   	                    topCard = (UnoCard)selectedCard;
   	                    currentPlayer.getHand().removeCard((UnoCard)selectedCard);
@@ -116,6 +190,9 @@ public class UnoGame extends Game{
   	            } catch (IndexOutOfBoundsException e) {
   	                // Handle invalid card choice
   	                System.out.println("Invalid choice! Please select a valid card number.");
+                        UnoCard drawnCard = deck.draw();
+                        currentPlayer.getHand().addCard(drawnCard);
+                        System.out.println("You were forced to draw: " + drawnCard);
   	            }
   	        }
 

@@ -34,6 +34,10 @@ public class Hand extends GroupOfCards {
     public ArrayList<Card> getCards() {
     	return new ArrayList<>(unoHand);
     }
+    
+    public UnoCard getOneCard(int card) {
+        return this.unoHand.get(card);
+    }
 
 	public UnoCard get(int index) {
 		 if (index >= 0 && index < unoHand.size()) {

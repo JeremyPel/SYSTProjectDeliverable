@@ -31,7 +31,6 @@ public class UnoDeck {
 
             for (int i = 0; i < 2; i++) {
                 unoCards.add(new UnoCard(color, UnoCard.Value.SKIP));
-                unoCards.add(new UnoCard(color, UnoCard.Value.REVERSE));
                 unoCards.add(new UnoCard(color, UnoCard.Value.DRAW_TWO));
             }
         }
@@ -41,7 +40,6 @@ public class UnoDeck {
     private void addWildCards() {
         for (int i = 0; i < 4; i++) {
             unoCards.add(new UnoCard(UnoCard.Color.NONE, UnoCard.Value.WILD));
-            unoCards.add(new UnoCard(UnoCard.Color.NONE, UnoCard.Value.WILD_DRAW_FOUR));
         }
     }
 

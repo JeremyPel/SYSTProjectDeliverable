@@ -12,7 +12,7 @@ public class UnoCard extends Card {
 	}
 	
 	public enum Value {
-		ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, SKIP, REVERSE, DRAW_TWO, WILD, WILD_DRAW_FOUR
+		ZERO, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, SKIP, DRAW_TWO, WILD
 	}
 	
 	private Color color = null;
@@ -30,6 +30,10 @@ public class UnoCard extends Card {
 	public Value getValue() {
 		return value;
 	}
+        
+        public void setColor(Color color) {
+                this.color = color;
+        }
 
 	@Override
 	public String toString() {
