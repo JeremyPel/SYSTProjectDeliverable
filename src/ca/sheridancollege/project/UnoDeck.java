@@ -60,7 +60,7 @@ public class UnoDeck {
     }
 
     // Constructor to create and shuffle the deck
-    public UnoDeck() {
+    public UnoDeck(int size) {
         addNumberCards();
         addSpecialCards();
         addWildCards();
